@@ -39,7 +39,7 @@ void swap(char** a, char** b) {
 }
 
 char* getLongestString(char** strings, int size) {
-	// char* max = NULL;       // maybe becuase we arent allowed to look at the location max= NULL
+	// char* max = NULL;       
 	char* max = strings[0];
 	int i; 
 	for ( i = 0; i < size; i++) {
@@ -55,8 +55,7 @@ void sortStrings(char** strings, int size) {
 	while (changed) {
 		changed = false;
 		int i;
-		for ( i = 0; i < size - 1; i++) {
-			// if (strcmp(strings[i], strings[i + 1]) >= 0) {         
+		for ( i = 0; i < size - 1; i++) {         
 			if (strcmp(strings[i], strings[i + 1]) > 0) {
 				swap(&strings[i], &strings[i + 1]);
 				changed = true;
@@ -76,13 +75,12 @@ void printResults(char** words, int size) {
 	char* longest = getLongestString(words, size);    
 	printf("The longest word is: %s\n", longest);
 	sortStrings(words, size);
-	// printf("The maximal word lexicographically is: %s\n", words[size]); // shouldnt access words[size] because 
-	printf("The maximal word lexicographically is: %s\n", words[size-1]);     // why are they doing mac then min, it should be the other way arounds
+	printf("The maximal word lexicographically is: %s\n", words[size-1]);     
 	printf("The minimal word lexicographically is: %s\n", words[0]);
 }
 
 char* readWord() {
-	char buffer[BUFFER_SIZE] = "";  // why starts with space? and not empty?
+	char buffer[BUFFER_SIZE] = "";  
 	scanf("%s", buffer);
 	if (strlen(buffer) < 1) {
 		return NULL;

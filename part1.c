@@ -4,28 +4,28 @@
 #define INVALID_INPUT false
 #define FAILURE 0
 
-int getInputSizeFromUser();
-bool getInputFromUser(int input_size, int input_array[]);
-int* allocateMemory(int input_size );
-void processInput(int input_size, int input_array[]);
+int getSizeOfInput();
+bool getInput(int length_of_input, int input_array[]);
+int* allocateTheMemory(int length_of_input );
+void processTheInput(int length_of_input, int input_array[]);
 
 int main()
 {
-	int input_size = 0;
-    input_size = getInputSizeFromUser();
-    if(input_size <= 0)
+	int length_of_input = 0;
+    length_of_input = getInputSizeFromUser();
+    if(length_of_input <= 0)
     {
         return 0;
     }
 
-    int *input_array = allocateMemory(input_size);
+    int *input_array = allocateMemory(length_of_input);
     if(input_array == NULL)
     {
         printf("memory allocation failed!");
         return FAILURE;
     } 
 
-    int status = getInputFromUser(input_size,input_array);
+    int status = getInputFromUser(length_of_input,input_array);
     if(status == INVALID_INPUT)
     {
         printf("Invalid number\n");
@@ -33,28 +33,23 @@ int main()
         return 0;
     }
     
-    processInput(input_size,input_array);
+    processInput(length_of_input,input_array);
     free(input_array);
 	return 0;
 }
 
-int getInputSizeFromUser()
+int* allocateMemory(int length_of_input)
 {
-    printf("Enter size of input:\n");
-    int input_size = 0;
-    scanf("%d",&input_size);
-    if(input_size <= 0)
-    {
-        printf("Invalid size\n");
-    }
-    return input_size;
+    int *input_array_ptr = malloc(length_of_input * sizeof(int));
+    return input_array_ptr;
 }
 
-bool getInputFromUser(int input_size, int input_array[]) 
+
+bool getInputFromUser(int length_of_input, int input_array[]) 
 {
     printf("Enter numbers:\n");
     int number_index = 0;
-    for( number_index = 0 ; number_index < input_size; number_index++)
+    for( number_index = 0 ; number_index < length_of_input; number_index++)
     {
         int current_number = 0;
         if(scanf("%d", &current_number) < 1)
@@ -66,11 +61,23 @@ bool getInputFromUser(int input_size, int input_array[])
     return true;
 }
 
-void processInput(int input_size, int input_array[])
+int getInputSizeFromUser()
+{
+    printf("Enter size of input:\n");
+    int length_of_input = 0;
+    scanf("%d",&length_of_input);
+    if(length_of_input <= 0)
+    {
+        printf("Invalid size\n");
+    }
+    return length_of_input;
+}
+
+void processInput(int length_of_input, int input_array[])
 {
     int i;
     int total_exponent_sum =0;
-    for( i = 0 ; i < input_size ; i++)
+    for( i = 0 ; i < length_of_input ; i++)
     {
         int current_num = input_array[i];
         int counter_of_2s = 0;
@@ -101,8 +108,3 @@ void processInput(int input_size, int input_array[])
 }
 
 
-int* allocateMemory(int input_size)
-{
-    int *input_array_ptr = malloc(input_size * sizeof(int));
-    return input_array_ptr;
-}
